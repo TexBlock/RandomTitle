@@ -1,0 +1,31 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+#issueTrackerURL = ""
+license = "GPLv3"
+
+[[mods]]
+modId = "randomtitlerework"
+version = "${version}"
+displayName = "RandomTitleRework"
+credits = "PercyDan"
+authors = "ThinkingStudio, TexTrue"
+description = '''
+RandomTitle unofficial 1.20.1 and above port.
+
+Pick random sentences as window title.
+'''
+logoFile = "assets/randomtitlerework/icon.png"
+
+[[dependencies.randomtitlerework]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.randomtitlerework]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"
