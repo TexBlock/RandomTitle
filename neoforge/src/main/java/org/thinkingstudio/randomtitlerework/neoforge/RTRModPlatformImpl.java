@@ -1,6 +1,6 @@
-package org.thinkingstudio.randomtitlerework.forge;
+package org.thinkingstudio.randomtitlerework.neoforge;
 
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 
 public class RTRModPlatformImpl {
     public static int getModListSize() {

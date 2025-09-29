@@ -33,9 +33,6 @@ public abstract class MinecraftClientMixin {
     public abstract ClientPlayNetworkHandler getNetworkHandler();
 
     @Shadow
-    public abstract boolean isConnectedToRealms();
-
-    @Shadow
     @Nullable
     public abstract ServerInfo getCurrentServerEntry();
 
@@ -48,11 +45,12 @@ public abstract class MinecraftClientMixin {
         ClientPlayNetworkHandler clientPlayNetworkHandler = this.getNetworkHandler();
         if (clientPlayNetworkHandler != null && clientPlayNetworkHandler.getConnection().isOpen()) {
             stringBuilder.append(" - ");
+            ServerInfo serverInfo = this.getCurrentServerEntry();
             if (this.server != null && !this.server.isRemote()) {
                 stringBuilder.append(I18n.translate("title.singleplayer"));
-            } else if (this.isConnectedToRealms()) {
+            } else if (serverInfo != null && serverInfo.isRealm()) {
                 stringBuilder.append(I18n.translate("title.multiplayer.realms"));
-            } else if (this.server == null && (this.getCurrentServerEntry() == null || !this.getCurrentServerEntry().isLocal())) {
+            } else if (this.server == null && (serverInfo == null || !serverInfo.isLocal())) {
                 stringBuilder.append(I18n.translate("title.multiplayer.other"));
             } else {
                 stringBuilder.append(I18n.translate("title.multiplayer.lan"));
