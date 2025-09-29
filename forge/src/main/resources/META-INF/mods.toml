@@ -1,12 +1,13 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
 #issueTrackerURL = ""
-license = "GPLv3"
+license = "GPL-3.0"
 
 [[mods]]
 modId = "randomtitlerework"
 version = "${version}"
 displayName = "RandomTitleRework"
+displayURL = "https://github.com/ThinkingStudios/RandomTitleRework"
 credits = "PercyDan"
 authors = "ThinkingStudio, TexTrue"
 description = '''
@@ -29,3 +30,10 @@ mandatory = true
 versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.randomtitlerework]]
+modId = "cloth_config"
+mandatory = true
+versionRange = "[11,)"
+ordering = "NONE"
+side = "CLIENT"
