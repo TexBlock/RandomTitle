@@ -1,0 +1,7 @@
+{
+  "text.autoconfig.randomtitlerework.title": "Random Title Rework Config",
+  "text.autoconfig.randomtitlerework.option.randomTitleSource": "Random Title Source",
+  "text.autoconfig.randomtitlerework.option.titleList": "Random Title List",
+  "text.autoconfig.randomtitlerework.option.titleFormat": "Title Format",
+  "text.autoconfig.randomtitlerework.option.dateFormat": "Date Format"
+}

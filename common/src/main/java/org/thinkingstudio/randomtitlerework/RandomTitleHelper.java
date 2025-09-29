@@ -1,13 +1,11 @@
 package org.thinkingstudio.randomtitlerework;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.thinkingstudio.randomtitlerework.config.RTRModConfigHelper;
 import org.thinkingstudio.randomtitlerework.config.RandomTitleSource;
+import org.thinkingstudio.randomtitlerework.hitokoto.Hitokoto;
+import org.thinkingstudio.randomtitlerework.hitokoto.HitokotoClient;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -29,29 +27,23 @@ public class RandomTitleHelper {
         RandomTitleReworkMod.LOGGER.info("Getting title from Hitokoto API.");
 
         String title;
-        String response;
 
+        HitokotoClient hitokotoClient = new HitokotoClient();
         try {
-            response = EntityUtils.toString(HttpClients.createDefault().execute(new HttpGet("https://v1.hitokoto.cn/")).getEntity());
-            RandomTitleReworkMod.LOGGER.info("Hitokoto Response String: " + response);
-            JsonObject json = JsonParser.parseString(response).getAsJsonObject();
-            String from = json.get("from").getAsString();
-            String sentence = json.get("hitokoto").getAsString();
-            String type = json.get("type").getAsString();
-            title = sentence + "   —— ";
-
+            Hitokoto hitokoto = hitokotoClient.getRandomHitokoto();
+            String type = hitokoto.getType();
+            title = hitokoto.getHitokoto() + "   —— ";
             switch (type) {
                 case "e":
-                    title += json.get("creator").getAsString() + " 原创";
+                    title += hitokoto.getCreator() + " 原创";
                     break;
                 case "f":
                     title += "来自网络";
                     break;
                 default:
-                    title += from;
+                    title += hitokoto.getFrom();
             }
-
-        } catch (Throwable e) {
+        } catch (IOException e) {
             RandomTitleReworkMod.LOGGER.error("Failed to get title from API! {}",e.getMessage(), e);
             return getTitleFromList();
         }
@@ -61,19 +53,19 @@ public class RandomTitleHelper {
     public static String getRandomTitle() {
         RandomTitleSource titleSource = RTRModConfigHelper.getConfig().randomTitleSource;
 
-        switch (titleSource) {
-            case HITOKOTO -> getTitleFromHitokoto();
-            case LIST -> getTitleFromList();
-            case BOTH -> {
-                boolean use = new Random().nextBoolean();
-                if (use) {
-                    return getTitleFromList();
-                } else {
-                    return getTitleFromHitokoto();
-                }
+        if (titleSource == RandomTitleSource.HITOKOTO) {
+            return getTitleFromHitokoto();
+        } else if (titleSource == RandomTitleSource.LIST) {
+            return getTitleFromList();
+        } else if (titleSource == RandomTitleSource.BOTH) {
+            boolean use = new Random().nextBoolean();
+            if (use) {
+                return getTitleFromList();
+            } else {
+                return getTitleFromHitokoto();
             }
         }
 
-        return getTitleFromList();
+        return getTitleFromHitokoto();
     }
 }

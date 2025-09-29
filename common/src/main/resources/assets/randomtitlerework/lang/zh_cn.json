@@ -1,0 +1,7 @@
+{
+  "text.autoconfig.randomtitlerework.title": "随机标题重做版配置",
+  "text.autoconfig.randomtitlerework.option.randomTitleSource": "随机标题源",
+  "text.autoconfig.randomtitlerework.option.titleList": "随机标题列表",
+  "text.autoconfig.randomtitlerework.option.titleFormat": "标题格式",
+  "text.autoconfig.randomtitlerework.option.dateFormat": "日期格式"
+}

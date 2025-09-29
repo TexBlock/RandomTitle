@@ -9,7 +9,6 @@ import net.minecraft.server.integrated.IntegratedServer;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -22,9 +21,7 @@ import java.text.SimpleDateFormat;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
-    @Unique
-    private final RTRModConfigs randomTitleRework$config = RTRModConfigHelper.getConfig();
-    @Unique
+    RTRModConfigs randomTitleRework$config = RTRModConfigHelper.getConfig();
     private final String randomTitleRework$randomTitle = RandomTitleHelper.getRandomTitle();
 
     @Shadow
