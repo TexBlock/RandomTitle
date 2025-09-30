@@ -1,9 +1,9 @@
 package org.thinkingstudio.randomtitlerework.neoforge;
 
-import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.FMLLoader;
 
 public class RTRModPlatformImpl {
     public static int getModListSize() {
-        return ModList.get().getMods().size();
+        return FMLLoader.getLoadingModList().getModFiles().size();
     }
 }
