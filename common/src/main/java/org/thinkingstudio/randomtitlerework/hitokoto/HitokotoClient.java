@@ -2,16 +2,16 @@ package org.thinkingstudio.randomtitlerework.hitokoto;
 
 import com.google.gson.Gson;
 import com.mojang.authlib.minecraft.client.ObjectMapper;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.thinkingstudio.randomtitlerework.RandomTitleReworkMod;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class HitokotoClient {
-    private static final String API_URL = "https://v1.hitokoto.cn";
+    private static final String API_URL = "https://v1.hitokoto.cn/";
     private final ObjectMapper objectMapper;
 
     public HitokotoClient() {
@@ -24,23 +24,10 @@ public class HitokotoClient {
      * @throws IOException 网络或解析异常
      */
     public Hitokoto getRandomHitokoto() throws IOException {
-        URL url = new URL(API_URL);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("User-Agent", "Java Hitokoto Client");
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
-
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            String response = EntityUtils.toString(httpClient.execute(new HttpGet(API_URL)).getEntity());
             RandomTitleReworkMod.LOGGER.info("Hitokoto Response String: " + response);
-            return objectMapper.readValue(response.toString(), Hitokoto.class);
-        } finally {
-            connection.disconnect();
+            return objectMapper.readValue(response, Hitokoto.class);
         }
     }
 }
