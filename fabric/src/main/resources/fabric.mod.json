@@ -18,7 +18,7 @@
       "org.thinkingstudio.randomtitlerework.fabric.RandomTitleReworkModFabricClient"
     ],
     "modmenu": [
-      "org.thinkingstudio.randomtitlerework.fabric.RTRModMenuCompat"
+      "org.thinkingstudio.randomtitlerework.fabric.ModMenuCompat"
     ]
   },
   "mixins": [

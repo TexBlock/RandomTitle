@@ -1,6 +1,6 @@
 package org.thinkingstudio.randomtitlerework;
 
-import org.thinkingstudio.randomtitlerework.config.RTRModConfigHelper;
+import org.thinkingstudio.randomtitlerework.config.ConfigHelper;
 import org.thinkingstudio.randomtitlerework.config.RandomTitleSource;
 import org.thinkingstudio.randomtitlerework.hitokoto.Hitokoto;
 import org.thinkingstudio.randomtitlerework.hitokoto.HitokotoClient;
@@ -14,7 +14,7 @@ public class RandomTitleHelper {
         String title = "";
 
         try {
-            List<String> titles = RTRModConfigHelper.getConfig().titleList;
+            List<String> titles = ConfigHelper.getConfig().titleList;
             title = titles.get(new Random().nextInt(titles.size()));
         } catch (Throwable e) {
             RandomTitleReworkMod.LOGGER.error("Failed to get title from config!", e);
@@ -51,7 +51,7 @@ public class RandomTitleHelper {
     }
 
     public static String getRandomTitle() {
-        RandomTitleSource titleSource = RTRModConfigHelper.getConfig().randomTitleSource;
+        RandomTitleSource titleSource = ConfigHelper.getConfig().randomTitleSource;
 
         if (titleSource == RandomTitleSource.HITOKOTO) {
             return getTitleFromHitokoto();

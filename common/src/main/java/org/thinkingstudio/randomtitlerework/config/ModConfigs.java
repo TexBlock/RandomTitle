@@ -2,12 +2,14 @@ package org.thinkingstudio.randomtitlerework.config;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import org.thinkingstudio.randomtitlerework.RandomTitleReworkMod;
 
 import java.util.List;
 
 @Config(name = RandomTitleReworkMod.MOD_ID)
-public class RTRModConfigs implements ConfigData {
+public class ModConfigs implements ConfigData {
+    @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
     public RandomTitleSource randomTitleSource = RandomTitleSource.HITOKOTO;
 
     public List<String> titleList = List.of(
